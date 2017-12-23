@@ -34,9 +34,6 @@ CMD ["node", "server/app.js"]
 
 
 
-# Pull base image.
-FROM dockerfile/ubuntu
-
 # Install Nginx.
 RUN \
   add-apt-repository -y ppa:nginx/stable && \
