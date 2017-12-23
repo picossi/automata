@@ -13,24 +13,12 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:6-slim
 
 ### Server side
 
-# Defines our working directory in container
 WORKDIR /usr/src/app
-
-# Copies the package.json first for better cache on later pushes
 COPY server/package.json package.json
-
-# This install npm dependencies on the resin.io build server,
-# making sure to clean up the artifacts it creates in order to reduce the image size.
 RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
-
-# This will copy all files in our root to the working  directory in the container
-COPY server/. ./server
-
-# Enable systemd init system in container
+COPY server/. .
 ENV INITSYSTEM on
-
-# app.js will run when container starts up on the device
-CMD ["node", "server/app.js"]
+CMD ["node", "app.js"]
 
 
 
