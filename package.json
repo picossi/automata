@@ -15,8 +15,16 @@
   "bugs": {
     "url": "https://github.com/picossi/automata/issues"
   },
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.16.2"
+  "scripts": {
+    "ng": "ng",
+    "start": "concurrently --kill-others \"cd client & ng serve\" \"cd server & node app.js\"",
+    "build": "cd client & ng build --prod",
+    "test": "cd client & ng test",
+    "lint": "cd client & ng lint",
+    "e2e": "cd client & ng e2e",
+    "install": "cd client & npm install & cd .. & cd server & npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }
