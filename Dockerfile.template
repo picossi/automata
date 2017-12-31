@@ -48,11 +48,11 @@ CMD ["node", "app.js"]
 
 ### Client side
 
-#RUN mkdir /tmp/client_app
-#WORKDIR /tmp/client_app
-#COPY client/. /tmp/client_app/.
-#RUN JOBS=MAX npm install && npm cache clean
-#RUN ng build --prod
-#COPY /tmp/client_app/dist/. /var/www/html/.
-#WORKDIR /var/www/html
-#RUN rm -rf /tmp/*
+RUN mkdir /tmp/client_app
+WORKDIR /tmp/client_app
+COPY client/. /tmp/client_app/.
+RUN JOBS=MAX npm install -g @angular/cli && npm install --production --unsafe-perm && npm cache clean
+RUN JOBS=MAX ng build --prod && npm uninstall @angular/cli
+COPY /tmp/client_app/dist/. /var/www/html/.
+WORKDIR /var/www/html
+RUN rm -rf /tmp/*
