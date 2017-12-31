@@ -6,7 +6,7 @@ setup_git() {
 }
 
 commit_dist() {
-  git add dist/*
+  git add client/dist/*
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
   git push origin master
 }
@@ -17,6 +17,9 @@ notify_resin() {
   git push resin master
 }
 
+cd .. 
 setup_git
-commit_dist
-#notify_resin
+if [ -d "client/dist" ]; then
+  commit_dist
+  #notify_resin
+fi
