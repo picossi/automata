@@ -12,7 +12,7 @@ remove_dist() {
 }
 
 cd ..
-setup_git
 if [ -d "client/dist" ]; then
+  setup_git
   remove_dist
 fi

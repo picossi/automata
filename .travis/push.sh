@@ -18,8 +18,8 @@ notify_resin() {
 }
 
 cd .. 
-setup_git
 if [ -d "client/dist" ]; then
+  setup_git
   commit_dist
   #notify_resin
 fi
