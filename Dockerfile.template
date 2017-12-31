@@ -11,17 +11,6 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:6-slim
 
 
 
-### Server side
-
-WORKDIR /usr/src/app
-COPY server/package.json package.json
-RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
-COPY server/. .
-ENV INITSYSTEM on
-CMD ["node", "app.js"]
-
-
-
 # Install Nginx.
 RUN \
   #add-apt-repository -y ppa:nginx/stable && \
@@ -43,3 +32,27 @@ CMD ["nginx"]
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
+
+
+
+### Server side
+
+WORKDIR /usr/src/app
+COPY server/package.json package.json
+RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
+COPY server/. .
+ENV INITSYSTEM on
+CMD ["node", "app.js"]
+
+
+
+### Client side
+
+RUN mkdir /tmp/client_app
+WORKDIR /tmp/client_app
+COPY client/. /tmp/client_app/.
+RUN JOBS=MAX npm install && npm cache clean
+RUN ng build --prod
+COPY /tmp/client_app/dist/. /var/www/html/.
+WORKDIR /var/www/html
+RUN rm -rf /tmp/*
