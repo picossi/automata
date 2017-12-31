@@ -7,6 +7,7 @@ branches:
     - master
 
 before_script:
+  - chmod 600 .travis/prepare-env.sh
   - .travis/prepare-env.sh
   - npm install -g @angular/cli
 
@@ -15,6 +16,7 @@ script:
   - ng build --prod
 
 after_success:
+  - chmod 600 .travis/push.sh
   - .travis/push.sh
 
 notifications:
