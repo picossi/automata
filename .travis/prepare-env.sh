@@ -6,6 +6,7 @@ setup_git() {
 }
 
 remove_dist() {
+  git checkout master
   git rm -r dist
   git commit -m "Remove dist directory"
   git push origin master
