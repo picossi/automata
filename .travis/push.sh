@@ -6,7 +6,6 @@ setup_git() {
 }
 
 commit_dist() {
-  git checkout master
   git add dist/*
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
   git push origin master

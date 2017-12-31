@@ -20,6 +20,12 @@ after_success:
   - chmod 777 .travis/push.sh
   - .travis/push.sh
 
+#cache:
+#  directories:
+#    - "node_modules"
+#    - "client/node_modules"
+#    - "server/node_modules"
+
 notifications:
   email:
     on_failure: change
